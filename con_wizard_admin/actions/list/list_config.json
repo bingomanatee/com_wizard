@@ -1,0 +1,26 @@
+{
+    "method":"get",
+
+    "get_route":"*s",
+
+    "static":[
+        {
+            "name":"wizard_admin_list_js",
+            "path":"js",
+            "prefix":"/admin/js/wizards"
+        }
+    ],
+
+    "javascript":[
+        {
+            "/js/libs/angular":[
+                "angular-1.0.1.js",
+                "angular-resource-1.0.1.js"
+            ]
+        },
+        "/js/libs/underscore/underscore-min.js",
+        "/admin/js/wizards/wizards.js",
+        "/js/wizard_support/ckeditor/ckeditor.js"
+    ]
+
+}
