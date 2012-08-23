@@ -90,9 +90,11 @@ var NE_WIZARD = {
                 var self = this;
 
                 this.root = $(this.selector);
-                this.root.load('/wizard/' + this.id, function () {
-                    self.init();
-                })
+                if (id){
+                    this.root.load('/wizard/' + this.id, function () {
+                        self.init();
+                    })
+                }
             },
 
             init:function () {

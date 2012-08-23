@@ -3,14 +3,6 @@
 
     "get_route":"*s",
 
-    "static":[
-        {
-            "name":"wizard_admin_list_js",
-            "path":"js",
-            "prefix":"/admin/js/wizards"
-        }
-    ],
-
     "javascript":[
         {
             "/js/libs/angular":[

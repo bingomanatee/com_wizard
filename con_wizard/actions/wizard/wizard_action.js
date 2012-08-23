@@ -21,7 +21,21 @@ module.exports = {
                     if (err){
                         self.on_input_error(rs, err);
                     } else {
-                        self.on_process(rs, wizard, steps);
+                        switch (rs.req_props.format){
+                            case 'package':
+                                rs.readFile(__dirname + './../actions/support/static/js/wizard/NE_WIZARD.js', 'utf8', function(err, script){
+                                    self.on_process(rs, wizard, steps, script);
+                                })
+                                break;
+
+                            case 'json':
+                                rs.send({wizard: wizard, steps: steps});
+                                break;
+
+                            default:
+                                self.on_process(rs, wizard, steps);
+
+                        }
                     }
 
                 })
@@ -31,10 +45,9 @@ module.exports = {
         })
     },
 
-    on_process: function(rs, wizard, steps){
+    on_process: function(rs, wizard, steps, script){
         console.log('wizard: %s, steps: %s', util.inspect(wizard), util.inspect(steps))
-        this.on_output(rs, {wizard: wizard, steps: steps});
-
+        this.on_output(rs, {wizard: wizard, steps: steps, script: script});
     }
 
 }

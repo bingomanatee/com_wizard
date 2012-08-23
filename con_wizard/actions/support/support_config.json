@@ -2,13 +2,5 @@
 
     "method": "get",
 
-    "route": "/ws/___",
-
-    "static": [
-        {
-            "name":"wizard_static_files",
-            "path":"js",
-            "prefix":"/js/wizard_support"
-        }
-    ]
+    "route": "/ws/___"
 }
