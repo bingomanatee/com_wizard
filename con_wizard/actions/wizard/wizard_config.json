@@ -1,7 +1,7 @@
 {
     "method": "get",
 
-    "get_route": ["*/:name", "*/:name.:format"],
+    "get_route": "*/:name.:format?",
 
     "layout_name": "empty"
 }
