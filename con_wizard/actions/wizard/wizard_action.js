@@ -20,11 +20,11 @@ module.exports = {
         var self = this;
         this.models.wizard.get_name(rs.req_props.name, function(err, wizard){
             if (err){
-                self.on_input_error(rs, err);
+                self.emit('input_error',rs, err);
             } else if (wizard){
                 self.models.wizard_step.find({wizard: wizard._id}).asc('order').exec(function(err, steps){
                     if (err){
-                        self.on_input_error(rs, err);
+                        self.emit('input_error',rs, err);
                     } else {
                         switch (rs.req_props.format){
                             case 'package':
@@ -52,7 +52,7 @@ module.exports = {
 
                 })
             } else {
-                self.on_input_error(rs, new Error('cannot find wizard', + rs.req_props._id));
+                self.emit('input_error',rs, new Error('cannot find wizard', + rs.req_props._id));
             }
         })
     },

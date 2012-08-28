@@ -24,7 +24,7 @@ var _model = mm.create(
         get_name:function (name, cb) {
             this.find_one({name:name}, cb);
         }
-    }
+    }, mongoose
 )
 
 module.exports = function () {

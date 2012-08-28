@@ -1,7 +1,9 @@
 {
-    "method":"get",
+    "method":"*",
 
     "get_route":"*s",
+
+    "post_route": "*s/:wizard_name",
 
     "javascript":[
         {
@@ -13,6 +15,8 @@
         "/js/libs/underscore/underscore-min.js",
         "/admin/js/wizards/wizards.js",
         "/js/wizard_support/ckeditor/ckeditor.js"
-    ]
+    ],
+
+    "overwrite": true
 
 }

@@ -31,7 +31,8 @@ function WizardsCtrl($scope, $filter, $compile, Wizards, WizardSteps) {
     
     $scope.wizards = Wizards.query();
     $scope.steps = WizardSteps.query();
-    $scope.colspan = 6;
+    $scope.coms = coms;
+    $scope.colspan = 7;
 
     $scope.steps_filter = function (item, id) {
         return item.wizard == id;
@@ -70,14 +71,18 @@ function WizardsCtrl($scope, $filter, $compile, Wizards, WizardSteps) {
 
     /* ****************** PREVIEW *************************** */
 
-    $scope.show_preview = false;
+    $scope.publish_wizard_show = false;
     $scope.view_wizard = {};
     $scope.preview_url = '';
     $scope.preview = function (wizard) {
         if (!wizard.name) return window.alert('you must give your wizard a name!');
         $scope.view_wizard = wizard;
         $scope.preview_url = '/wizard/' + wizard.name;
-        $scope.show_preview = true;
+        $scope.publish_wizard_show = true;
+    }
+
+    $scope.export = function(){
+        console.log('exporting wizard');
     }
 
     /* ******************* HTML EDITOR ************************ */
@@ -135,6 +140,47 @@ function WizardsCtrl($scope, $filter, $compile, Wizards, WizardSteps) {
             // note - NOT resetting content type; removing the editor is not necessarily an indicator
         }
 
+    }
+
+    /* ******************* PUBLISH *********************** */
+
+    $scope.publish_wizard_show = false;
+    $scope.publish = function(wizard){
+        console.log('publishing ', wizard);
+        $scope.publish_wizard = wizard;
+        var template = $('#publish_wizard_template').html();
+        console.log('tempate: ', template);
+        var _publish_form = $compile(template);
+
+        $('#publish_wizard').html(_publish_form($scope));
+        $('#publish_form').submit(function(){
+            return false;
+        });
+        $scope.publish_wizard_show = true;
+    }
+
+    $scope.get_com = function(com){
+        console.log('getting com', com, 'from', $scope.coms);
+        if (com){
+            return _.find($scope.coms, function(c){return c.name == com});
+        } else {
+            return null
+        }
+    }
+
+    $scope.export_component = '';
+    $scope.export_wizard = function(){
+        $scope.publish_wizard_show = false;
+        if ($scope.export_component && $scope.publish_wizard){
+
+            var data = {
+                com: $scope.get_com($scope.export_component),
+                wizard: $scope.publish_wizard._id
+            }
+            $.post('/admin/wizards/' + $scope.publish_wizard.name, data, function(res){
+                console.log('published wizard: response ', res);
+            })
+        }
     }
 
     /* ****************** NEW WIZARD ********************* */

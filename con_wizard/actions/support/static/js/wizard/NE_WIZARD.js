@@ -1,3 +1,11 @@
+/**
+ * Note - this is probably the worst code in Nuby Express.
+ * Steps should be in their own classes and indexed by name not number.
+ * Coding is hard.
+ *
+ * @type {Object}
+ */
+
 var NE_WIZARD = {
 
     Wizard:function () {
