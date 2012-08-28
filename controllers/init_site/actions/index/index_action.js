@@ -1,8 +1,8 @@
 module.exports = {
 
-on_validate: function (rs){
-	rs.go(rs, '/wizard_foo/alpha');
-},
+	on_validate: function (rs){
+        rs.go('/init_site/unix_user');
+        },
 
 /* ****** GET ****** */
 

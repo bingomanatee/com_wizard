@@ -1,0 +1,8 @@
+{
+    "route_prefix":"/init_site",
+    "css":[
+        "/admin/stylesheets/less/wizard.less"
+    ],
+
+    "layout_name": "ne_admin"
+}

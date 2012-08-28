@@ -1,0 +1,37 @@
+<form method="post" class="wizard"><h1>Site Initialization</h1>
+<%- partial("../../views/step_header.html", {step: "admin_member"}) %> <br />
+<h2>Admin Member</h2>
+<p>
+	Create an administrative user with full privileges.&nbsp;</p>
+
+	<table border="0" cellpadding="0" cellspacing="0">
+		<tbody>
+			<tr>
+				<th>
+					Member Name</th>
+				<td>
+					<input name="member_name" autocomplete="off" type="text" value="<%= member_name %>"/></td>
+			</tr>
+			<tr>
+				<th>
+					Real Name</th>
+				<td>
+					<input name="real_name" autocomplete="off" type="text" value="<%= real_name %>" /></td>
+			</tr>
+			<tr>
+				<th>
+					Password</th>
+				<td>
+					<input name="password" autocomplete="off" type="password" /></td>
+			</tr>
+			<tr>
+				<th>
+					Password (again)</th>
+				<td>
+					<input name="password2" autocomplete="off" type="password" /></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Note - at this time you (actually, <u><strong>everyone</strong></u>) &nbsp;have full access to this site without an admin user because the configuration property &quot;open_admin&quot; is true. Once that flag has been set to false, only privlieged users will have access to this site&#39;s admin layer. You must change that configuration setting soon and restart your app to secure your site.&nbsp;</p>
+<%- partial("../../views/step_footer.html", {step: "admin_member"}) %></form>

@@ -1,0 +1,1 @@
+{"post_route":"*/admin_member","get_route":"*/admin_member", "method": "*"}
