@@ -41,11 +41,11 @@ module.exports = {
         if (_DEBUG) console.log('next: %s, prev: %s', util.inspect(next), util.inspect(prev));
         var self = this;
         this.model().set_state(function (err, state) {
-            rs.flash('info', 'saved state ' + util.inspect(state));
+           if (_DEBUG) rs.flash('info', 'saved state ' + util.inspect(state));
             if (next) {
                 rs.go('/init_site/facebook_app_test')
             } else if (prev) {
-                rs.go('/init_site/unix_user')
+                rs.go('/init_site/unix_username')
             } else {
                 self.on_output(rs, {})
             }

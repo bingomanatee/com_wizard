@@ -3,17 +3,25 @@
 <h2>Save Site Settings</h2>
 <p>By hitting "Save Settings" below you will apply the settings below to your site:</p>
 <% for (var p in state){ %>
-    <h3><%= p %></h3>
+    <fieldset>
+        <legend><%= p %></legend>
     <% var state_data = state[p];
     delete state_data.next;
-    delete state_data.password;
-    delete state_data.password2;
+    delete state_data.pass;
+    delete state_data.pass2;
+    if (state_data.facebook_app_secret) state_data.facebook_app_secret = state_data.facebook_app_secret.replace(/.{15}$/, '...');
     %>
+
     <dl class="clearfix">
    <% for (var field in state_data){ %>
    <dt><%= field %></dt>
    <dd><%= state_data[field] %></dd>
     <% } %>
         </dl>
+        </fieldset>
     <% } %>
+
+    <p>
+        <small>(not displaying passwords, FB secret for security)</small>
+    </p>
 <%- partial("../../views/step_footer.html", {step: "confirm"}) %></form>

@@ -1,12 +1,11 @@
-var _DEBUG = true
-    , util = require('util');
+var _DEBUG = false;
+var util = require('util');
 var _ = require('underscore');
 var STUPID_PW_REGEX = /(fuck|shit|god|admin|abc|123|pass|[.]{4,})/i;
 var MIN_PW_LENGTH = 8;
 function _bad_password(props) {
-    var p2 = props.password2;
-    var p1 = props.password;
-    var p1_simple = p1.toLowerCase().replace(/[\s]+/, '');
+    var p2 = props.pass2;
+    var p1 = props.pass;
     if (_DEBUG) {
         console.log('p1: %s, p2: %s', p1, p2);
     }
@@ -56,23 +55,25 @@ module.exports = {
     },
 
     on_post_input:function (rs) {
-        this.on_post_process(rs, rs.req_props, rs.req_props.hasOwnProperty('next'), rs.req_props.hasOwnProperty('prev'));
+        var member = rs.req_props.member;
+        console.log('member: %s',util.inspect(member));
+        this.on_post_process(rs, member, rs.has('next'), rs.has('prev'));
     },
 
     on_post_process:function (rs, props, next, prev) {
         if (_DEBUG) console.log('next: %s, prev: %s', util.inspect(next), util.inspect(prev));
         var self = this;
 
-        var err = _bad_password(props);
-        if (err) {
-            rs.flash('error', err);
-            return self.on_input(rs);
-        }
-
 
         this.model().set_state(function (err, state) {
             if (_DEBUG)    rs.flash('info', 'saved state ' + util.inspect(state));
             if (next) {
+                var err = _bad_password(props);
+                if (err) {
+                    rs.flash('error', err);
+                    return self.on_input(rs); // re-displaying page
+                }
+
                 rs.go('/init_site/confirm')
             } else if (prev) {
                 rs.go('/init_site/facebook_app') // skipping back two steps

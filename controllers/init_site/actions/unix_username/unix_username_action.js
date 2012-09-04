@@ -1,4 +1,5 @@
 var util = require('util');
+var _DEBUG = false;
 
 module.exports = {
 
@@ -40,13 +41,13 @@ module.exports = {
 
         var self = this;
         this.model().set_state(function (err, state) {
-            rs.flash('info', 'saved state ' + util.inspect(state));
+            if (_DEBUG) rs.flash('info', 'saved state ' + util.inspect(state));
             if (next) {
                 rs.go('/init_site/facebook_app')
             } else {
                 self.on_output(rs, {})
             }
-        }, {unix_username: unix_username}, 'init_site', 'unix_user');
+        }, {unix_username: unix_username}, 'init_site', 'unix_username');
 
     },
 
